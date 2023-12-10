@@ -65,9 +65,9 @@ Both applications provide the following endpoints:
 
 - `POST /add`: Add data to the database.
 - `GET /fetch`: Retrieve data from the database.
-- `PATCH /update`: Update existing data in the database.
+- `PATCH /update/id`: Update existing data in the database.
 - `PUT /update/id`: Update all existing data in the database.
-- `DELETE /delete`: Delete data from the database.
+- `DELETE /delete/id`: Delete data from the database.
 
 ### API Deployment on Production
 
