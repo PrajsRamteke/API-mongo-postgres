@@ -7,10 +7,10 @@ This repository contains two Node.js applications for connecting to PostgreSQL a
 
 Before running the applications, ensure you have Node.js and npm installed on your system.
 
-1. Clone the repository to your local machine. {}
-```
-https://github.com/PrajsRamteke/API-mongo-postgres.git
-```
+1. Clone the repository to your local machine. 
+    ```
+    https://github.com/PrajsRamteke/API-mongo-postgres.git
+    ```
 
 2. Navigate to the cloned directory.
 
