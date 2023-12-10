@@ -18,20 +18,45 @@ app.use(bodyParser.json());
 
 // Define a simple schema for demonstration
 const dataSchema = new mongoose.Schema({
-  data: String
+  name: String,
+  email: String,
+  mobilenumber: String,
+  country: String,
+  state: String,
+  city: String,
+  area: String,
+  venue: String,
+  ideas: String
+  
 });
 const DataModel = mongoose.model('Data', dataSchema);
 
-// POST endpoint to add data to MongoDB
+
 app.post('/add', async (req, res) => {
     try {
-        const newData = new DataModel({ data: req.body.data });
+        const newData = new DataModel({
+            name: req.body.name,
+            email: req.body.email,
+            mobilenumber: req.body.mobilenumber,
+            country: req.body.country,
+            state: req.body.state,
+            city: req.body.city,
+            area: req.body.area,
+            venue: req.body.venue,
+            ideas: req.body.ideas
+            // Make sure to add the rest of the fields here
+        });
+
         const savedData = await newData.save();
-        res.json(savedData);
+        res.json({ message: 'Data added successfully'});
     } catch (error) {
-        res.status(400).json({error: error.message});
+        console.log(error); // Enhanced error logging
+        res.status(400).json({ error: error.message });
     }
 });
+
+
+
 
 // GET endpoint to fetch data from MongoDB
 app.get('/fetch', async (req, res) => {
@@ -44,35 +69,44 @@ app.get('/fetch', async (req, res) => {
 });
 
 // PATCH endpoint to update data in MongoDB
-app.patch('/update', async (req, res) => {
+app.patch('/update/:id', async (req, res) => {
     try {
-        const updatedData = await DataModel.findByIdAndUpdate(req.body.id, { data: req.body.newData }, { new: true });
+        const updatedData = await DataModel.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        if (!updatedData) {
+            return res.status(404).json({ error: 'Data not found' });
+        }
         res.json(updatedData);
     } catch (error) {
-        res.status(400).json({error: error.message});
+        res.status(400).json({ error: error.message });
     }
 });
 
 // PUT endpoint to update data in MongoDB
 app.put('/update/:id', async (req, res) => {
     try {
-        const updatedData = await DataModel.findByIdAndUpdate(req.params.id, { data: req.body.data }, { new: true });
+        const updatedData = await DataModel.findByIdAndUpdate(req.params.id, req.body, { new: true });
         res.json(updatedData);
     } catch (error) {
-        res.status(400).json({error: error.message});
+        res.status(400).json({ error: error.message });
     }
 });
+
 
 
 // DELETE endpoint to delete data from MongoDB
-app.delete('/delete', async (req, res) => {
+app.delete('/delete/:id', async (req, res) => {
     try {
-        const deletedData = await DataModel.findByIdAndDelete(req.body.id);
-        res.json(deletedData);
+        const deletedData = await DataModel.findByIdAndDelete(req.params.id);     
+        if (!deletedData) {
+            return res.status(404).json({ error: 'Data not found' });
+        }
+        res.json({ message: 'Data deleted successfully' });
     } catch (error) {
-        res.status(400).json({error: error.message});
+        res.status(400).json({ error: error.message });
     }
 });
+
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
