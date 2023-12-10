@@ -9,7 +9,7 @@ Before running the applications, ensure you have Node.js and npm installed on yo
 
 1. Clone the repository to your local machine. {}
 ```
-[repo](https://github.com/PrajsRamteke/API-mongo-postgres.git)
+https://github.com/PrajsRamteke/API-mongo-postgres.git
 ```
 
 2. Navigate to the cloned directory.
